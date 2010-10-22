@@ -1,10 +1,14 @@
 package filesystem
 {
 	import flash.filesystem.File;
+	
+	import model.Song;
 
 	public class MusicLibrary
 	{
 		private static var _instance:MusicLibrary;
+		
+		private static var songs:Vector.<Song>;
 		
 		
 		public function MusicLibrary()
@@ -32,6 +36,9 @@ package filesystem
 		
 		private function checkForNewMusic():void{
 			var musicDirectory:File = new File(File.userDirectory.nativePath + "/Music");
+			
+			songs = new Vector.<Song>();
+			
 			processFileByType(musicDirectory);
 		}
 		
@@ -56,7 +63,7 @@ package filesystem
 		private function addToLibrary(file:File):void{
 			switch(file.extension){
 				case "mp3":
-					trace(file.nativePath);
+					songs.push(new Song(file));
 					break;
 			}
 		}

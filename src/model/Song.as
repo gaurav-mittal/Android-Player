@@ -16,18 +16,19 @@ package model
 		
 		private var loader:SequencedSound;
 				
-		public function Song()
+		public function Song(p_file:File)
 		{
+			file = p_file;
 		}
 		
-		public function set file(value:File){
-			_file = value;
+		public function set file(p_value:File):void{
+			_file = p_value;
 			loader = new SequencedSound();
 			loader.load(new URLRequest(_file.nativePath));
 			loader.addEventListener(Event.COMPLETE, setID3);
 		}
 		
-		public function set ID3(evt:Event):void{
+		public function setID3(evt:Event):void{
 			loader.removeEventListener(Event.COMPLETE, setID3);
 			artist = loader.id3.artist;
 			album = loader.id3.album;
