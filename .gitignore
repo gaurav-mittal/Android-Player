@@ -1,0 +1,17 @@
+$ cat .gitignore
+
+.com.apple.timemachine.supported
+.DS_Store
+.settings/*
+.actionScriptProperties
+.flexProperties
+.flexLibProperties
+.FlexUnitSettings
+.project
+.as3proj
+.as3_classpath
+src/libs/assets/*.swf
+src/fla/*.swf
+deploy/media/swfs/*
+*.yaml
+*.tmproj
