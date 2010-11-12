@@ -1,4 +1,4 @@
-package filesystem
+package core.filesystem
 {
 	import flash.filesystem.File;
 	

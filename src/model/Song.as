@@ -1,9 +1,7 @@
 package model
 {
-	import com.metaphile.id3.ID3Data;
-	import com.metaphile.id3.ID3Reader;
-	import com.metaphile.id3.ID3Writer;
-	import com.metaphile.id3.utilities.ID3;
+	import com.fusiox.media.ID3Reader;
+	import com.fusiox.media.ID3Stream;
 	
 	import flash.events.Event;
 	import flash.filesystem.File;
@@ -18,8 +16,7 @@ package model
 		
 		private var _file:File;
 		
-		private var sound:Sound;
-		private var id3:ID3Data;
+		private var id3:ID3Stream;
 		private var reader:ID3Reader;
 				
 		public function Song(p_file:File)
@@ -30,19 +27,20 @@ package model
 		public function set file(p_value:File):void{
 			_file = p_value;
 			
-			id3 = new ID3Data();
-			
-			reader = new ID3Reader();
-			
-			
-			
+			id3 = new ID3Stream();
+			id3.load(new URLRequest(_file.url));
+			id3.addEventListener(Event.ID3, setID3);
 			
 			}
 		
 		public function setID3(evt:Event):void{
-			sound.removeEventListener(Event.COMPLETE, setID3);
-								
-			sound.close();
+			name = id3.reader.frames["TIT2"]["text"];
+			artist = id3.reader.frames["TPE1"]["text"];
+			album = id3.reader.frames["TALB"]["text"];
+			for(var i:String in id3.reader.frames){
+				//trace(i, id3.reader.frames[i].text);
+			}
+			
 		}
 	}
 }
